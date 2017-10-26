@@ -6,7 +6,7 @@
     xmlns:cmd="clr-namespace:GalaSoft.MvvmLight.Command;assembly=GalaSoft.MvvmLight.Extras.WPF45"
     xmlns:viewModel="clr-namespace:DG.WPF.SQLite.Quiz.ViewModel"
     xmlns:my="clr-namespace:DG.WPF.SQLite.Quiz.HelperClasses"
-    Title="Configure"
+    Title="Configure moved to Github"
     x:Name="ConfigureQuizWindow"
     DataContext="{Binding ConfigureQuizViewModel, Source={StaticResource Locator}}"
     Style="{StaticResource MyFontStyle}">
