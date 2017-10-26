@@ -1,0 +1,121 @@
+﻿<Window x:Class="DG.WPF.SQLite.QuizCreator.SubCategoriesWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity" 
+        xmlns:cmd="clr-namespace:GalaSoft.MvvmLight.Command;assembly=GalaSoft.MvvmLight.Extras.WPF45"
+        xmlns:ignore="http://www.ignore.com"
+        mc:Ignorable="d ignore"
+        xmlns:local="clr-namespace:DG.WPF.SQLite.QuizCreator.HelperClasses"
+        Title="Sub Categories"
+        DataContext="{Binding SubCategoriesViewModel, Source={StaticResource Locator}}"
+        Width="1000"
+        Height="800">
+    <Window.InputBindings>
+        <KeyBinding Command="{Binding NewSubCategoryCommand}"  Key="N" Modifiers="Control" />
+        <KeyBinding Command="{Binding SaveSubCategoriesCommand}" Key="S" Modifiers="Control" />
+        <KeyBinding Command="{Binding DeleteSubCategoryCommand}" Key="Delete" />
+    </Window.InputBindings>
+    <i:Interaction.Triggers>
+        <i:EventTrigger EventName="Closing">
+            <cmd:EventToCommand Command="{Binding OnClosingCommand}"  PassEventArgsToCommand="True"  />
+        </i:EventTrigger>
+    </i:Interaction.Triggers>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"></RowDefinition>
+            <RowDefinition Height="Auto"></RowDefinition>
+            <RowDefinition></RowDefinition>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition></ColumnDefinition>
+            <ColumnDefinition></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        <Grid Grid.Row="1" Grid.Column="0" Grid.RowSpan="2">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"></RowDefinition>
+                <RowDefinition></RowDefinition>
+            </Grid.RowDefinitions>
+            <TextBox Background="Gainsboro" 
+                        IsReadOnly="True"
+                        Grid.Row="0"
+                        Grid.Column="0"
+                        Text="{Binding Path=SubCategoryPath, Mode=OneWay}" 
+                        FontSize="18pt" 
+                        Margin="10"
+                        Padding="10" 
+                        TextWrapping="Wrap">
+                <TextBox.Effect>
+                    <DropShadowEffect/>
+                </TextBox.Effect>
+            </TextBox>
+        <ListBox x:Name="lstSubCategories"
+                    Grid.Row="1"
+                    ItemsSource="{Binding SubCategories.View}" 
+                    FontSize="14"  
+                    SelectedItem="{Binding SelectedSubCategory, Mode=TwoWay}" 
+                    Style="{DynamicResource styleListBox}" 
+                    ScrollViewer.HorizontalScrollBarVisibility="Disabled">
+            <i:Interaction.Triggers>
+                <i:EventTrigger EventName="MouseDoubleClick">
+                    <i:InvokeCommandAction CommandParameter="{Binding SelectedItem, ElementName=lstSubCategories}" Command="{Binding Path=ShowQuestionsCommand, Mode=OneWay}"/>
+                </i:EventTrigger>
+            </i:Interaction.Triggers>
+            <ItemsControl.ItemTemplate>
+                <DataTemplate>
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="9*"></ColumnDefinition>
+                            <ColumnDefinition Width="1*"></ColumnDefinition>
+                        </Grid.ColumnDefinitions>
+                        <TextBlock Grid.Column="0" Text="{Binding Path=SubCategoryDescription}" Margin="5"></TextBlock>
+                        <TextBlock Grid.Column="1" Text="{Binding Path=TotalQuestions}" Margin="5"></TextBlock>
+                    </Grid>
+                </DataTemplate>
+            </ItemsControl.ItemTemplate>
+                <ItemsControl.ContextMenu>
+                    <ContextMenu>
+                        <MenuItem  Command="{Binding PreviewHtmlCommand}" Header="Preview Html"></MenuItem>
+                        <MenuItem Command="{Binding EditHtmlCommand}" Header="Edit Html"></MenuItem>
+                    </ContextMenu>
+                </ItemsControl.ContextMenu>
+            </ListBox>
+        </Grid>
+        <Grid Grid.Row="1" Grid.Column="1">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"></RowDefinition>
+                <RowDefinition Height="Auto"></RowDefinition>
+            </Grid.RowDefinitions>
+            <TextBox Background="Gainsboro" 
+                     Grid.Row="0" 
+                     Text="{Binding Path=SelectedSubCategory.SubCategoryDescription, Mode=TwoWay}" 
+                     FontSize="18pt" 
+                     Margin="10" 
+                     Padding="10" 
+                     TextWrapping="Wrap">
+                <TextBox.Effect>
+                    <DropShadowEffect/>
+                </TextBox.Effect>
+            </TextBox>
+            <Button Grid.Row="1" Grid.Column="1"  Content="Show Additional Info Sections"  Command="{Binding ShowAdditionalInfosCommand}" >
+                <Button.Style>
+                    <Style>
+                        <Style.Triggers>
+                            <DataTrigger Binding ="{Binding ElementName=lstSubCategories, Path=SelectedIndex}" Value="-1">
+                                <Setter Property="Button.IsEnabled" Value="false"/>
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </Button.Style>
+            </Button>
+        </Grid>
+            <Grid Grid.Row="2" Grid.Column="1">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"></RowDefinition>
+                    <!--<RowDefinition Height="*"></RowDefinition>-->
+                </Grid.RowDefinitions>
+            <WebBrowser Grid.Row="0" local:WebBrowserUtility.BindableSource="{Binding SelectedSubCategory.SubCategoryNotesFullHtml}" />
+        </Grid>
+    </Grid>
+</Window>

@@ -1,0 +1,8 @@
+﻿<UserControl x:Class="DG.WPF.SQLite.Quiz.Views.SingleChoiceSingleAnswer"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             DataContext="{Binding QuizSessionViewModel, Source={StaticResource Locator}}">
+    <Grid>
+            <TextBox  Text="{Binding AnswerText, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+    </Grid>
+</UserControl>

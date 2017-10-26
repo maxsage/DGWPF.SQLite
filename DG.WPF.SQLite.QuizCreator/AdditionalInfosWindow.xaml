@@ -1,0 +1,147 @@
+﻿<Window x:Class="DG.WPF.SQLite.QuizCreator.AdditionalInfosWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity" 
+        xmlns:cmd="clr-namespace:GalaSoft.MvvmLight.Command;assembly=GalaSoft.MvvmLight.Extras.WPF45"
+        xmlns:ignore="http://www.ignore.com"
+        mc:Ignorable="d ignore"
+        xmlns:local="clr-namespace:DG.WPF.SQLite.QuizCreator.HelperClasses"
+        Title="Additional Infos">
+    <Window.InputBindings>
+        <KeyBinding Command="{Binding NewAdditionalInfoCommand}"  Key="N" Modifiers="Control" />
+        <KeyBinding Command="{Binding SaveAdditionalInfosCommand}" Key="S" Modifiers="Control" />
+        <KeyBinding Command="{Binding NextAdditionalInfoCommand}" Key="Add" Modifiers="Control" />
+        <KeyBinding Command="{Binding PreviousAdditionalInfoCommand}" Key="Subtract" Modifiers="Control" />
+        <KeyBinding Command="{Binding PreviewInBrowserCommand}" Key="F12" />
+        <KeyBinding Command="{Binding PreviewInReaderCommand}" Key="F11" />
+        <KeyBinding Command="{Binding DeleteAdditionalInfoCommand}" Key="Delete" />
+    </Window.InputBindings>
+    <i:Interaction.Triggers>
+        <i:EventTrigger EventName="Closing">
+            <cmd:EventToCommand Command="{Binding OnClosingCommand}"  PassEventArgsToCommand="True"  />
+        </i:EventTrigger>
+    </i:Interaction.Triggers>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"></RowDefinition>
+            <RowDefinition Height="Auto"></RowDefinition>
+            <RowDefinition ></RowDefinition>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="1*"></ColumnDefinition>
+            <ColumnDefinition Width="10"></ColumnDefinition>
+            <ColumnDefinition Width="2*"></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        <Grid Grid.Row="1" Grid.Column="0" Grid.RowSpan="2">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"></RowDefinition>
+                <RowDefinition></RowDefinition>
+            </Grid.RowDefinitions>
+            <TextBox Background="Gainsboro" 
+                        IsReadOnly="True"
+                        Grid.Row="0"
+                        Grid.Column="0"
+                        MinLines="2"
+                        Text="{Binding Path=AdditionalInfoPath, Mode=OneWay}" 
+                        FontSize="18pt" 
+                        Margin="10"
+                        Padding="10" 
+                        TextWrapping="Wrap">
+                <TextBox.Effect>
+                    <DropShadowEffect/>
+                </TextBox.Effect>
+            </TextBox>
+            <ListBox x:Name="lstAdditionalInfos"  
+                      Grid.Row="1" 
+                      ItemsSource="{Binding AdditionalInfos.View}"  
+                      FontSize="14" 
+                      SelectedItem="{Binding SelectedAdditionalInfo, Mode=TwoWay}"
+                      ScrollViewer.HorizontalScrollBarVisibility="Disabled" >
+                <i:Interaction.Triggers>
+                    <i:EventTrigger EventName="MouseDoubleClick">
+                        <i:InvokeCommandAction CommandParameter="{Binding SelectedItem, ElementName=lstAdditionalInfos}" Command="{Binding Path=ShowAdditionalInfoCommand, Mode=OneWay}"/>
+                    </i:EventTrigger>
+                </i:Interaction.Triggers>
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto"></ColumnDefinition>
+                                <ColumnDefinition Width="Auto"></ColumnDefinition>
+                                <ColumnDefinition ></ColumnDefinition>
+                            </Grid.ColumnDefinitions>
+                            <TextBlock Grid.Column="1" Text="{Binding Path=SequenceNumber}" Margin="5"></TextBlock>
+                            <TextBlock Grid.Column="2" Text="{Binding Path=SectionDescription}" Margin="5" TextWrapping="Wrap"></TextBlock>
+                        </Grid>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+                <ItemsControl.ContextMenu>
+                    <ContextMenu>
+                        <MenuItem  Command="{Binding PreviewInBrowserCommand}" IsEnabled="{Binding SelectedAdditionalInfo.DisplayInBrowser}" Header="Preview In Browser"></MenuItem>
+                        <MenuItem  Command="{Binding EditWebPageCommand}" IsEnabled="{Binding SelectedAdditionalInfo.DisplayInBrowser}" Header="Edit Web Page"></MenuItem>
+                        <MenuItem  Command="{Binding PreviewInReaderCommand}" IsEnabled="{Binding SelectedAdditionalInfo.DisplayInReader}" Header="Preview In Reader"></MenuItem>
+                        <MenuItem  Command="{Binding PreviewHtmlCommand}" Header="Preview Html"></MenuItem>
+                        <MenuItem  Command="{Binding EditHtmlCommand}" Header="Edit Html"></MenuItem>
+                    </ContextMenu>
+                </ItemsControl.ContextMenu>
+            </ListBox>
+        </Grid>
+        <GridSplitter Grid.Row="0" Grid.RowSpan="3" Grid.Column="1" Width="10" Margin="0" Background="AliceBlue" ResizeDirection="Columns" HorizontalAlignment="Center"></GridSplitter>
+        <Grid Grid.Row="1" Grid.Column="2">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"></RowDefinition>
+                <RowDefinition Height="Auto"></RowDefinition>
+                <RowDefinition Height="Auto"></RowDefinition>
+                <RowDefinition Height="Auto"></RowDefinition>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <TextBox Background="Gainsboro" 
+                     Grid.Row="0" 
+                     Grid.Column="0" 
+                     Grid.ColumnSpan="2" 
+                     MinLines="2" 
+                     Text="{Binding Path=SelectedAdditionalInfo.SectionDescription, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"  
+                     FontSize="18pt" 
+                     Margin="10" 
+                     Padding="10" 
+                     TextWrapping="Wrap">
+                <TextBox.Effect>
+                    <DropShadowEffect/>
+                </TextBox.Effect>
+            </TextBox>
+            <TextBlock Grid.Row="1" Grid.Column="0" Text="Html Page:" Width="Auto"></TextBlock>
+            <Grid Grid.Row="1" Grid.Column="1">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto" ></ColumnDefinition>
+                    <ColumnDefinition Width="*"></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition></RowDefinition>
+                </Grid.RowDefinitions>
+                <Label Grid.Row="0" Content="{Binding Path=SelectedCategory.AdditionalInfoUri}"></Label>
+                <TextBox Grid.Column="1" ToolTipService.ShowDuration="1800" Text="{Binding Path=SelectedAdditionalInfo.AdditionalInfoUri, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"></TextBox>
+                
+            </Grid>
+            <TextBlock Grid.Row="2" Grid.Column="0" Text="Sequence:" Width="Auto"></TextBlock>
+            <TextBox Grid.Row="2" Grid.Column="1" Text="{Binding Path=SelectedAdditionalInfo.SequenceNumber}"></TextBox>
+            
+            <TextBlock Grid.Row="3" Grid.Column="0" Text="Browser:"></TextBlock>
+            <ComboBox Grid.Row="3" Grid.Column="1" ItemsSource="{Binding YesOrNo}" 
+                      SelectedValue="{Binding Path=SelectedAdditionalInfo.DisplayInBrowser, Mode=TwoWay}">
+            </ComboBox>
+        </Grid>
+        <Grid Grid.Row="2" Grid.Column="2" >
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"></RowDefinition>
+                <RowDefinition Height="*"></RowDefinition>
+            </Grid.RowDefinitions>
+            <WebBrowser Grid.Row="0" local:WebBrowserUtility.BindableSource="{Binding SelectedAdditionalInfo.AdditionalInfoFullHtml}"  />
+        </Grid>
+    </Grid>
+</Window>
+

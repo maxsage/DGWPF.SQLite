@@ -1,0 +1,55 @@
+﻿Implement functionality to save database file to DropBox (this will save having two Windows explorer sessions open and potentially accidentally
+ overwriting the wrong file)
+
+Number of questions in quiz stats seems to be building each time the quiz is started (see first JavaScript quiz)
+
+Provide functionality to edit Questions and Answers as you go through the quiz
+
+Add a preferences option to modify default directory similar to this:
+
+	  private void btnSQLSave_Click(object sender, RoutedEventArgs e)
+        { 
+            // Persist user settings
+            DG.WPF.SQLite.Quiz.Properties.Settings.Default.DefaultDirectory = tbSQLServer.Text;
+
+            try
+            {
+                Configuration config = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
+                config.Save(ConfigurationSaveMode.Modified, true);
+            }
+            catch(Exception ex)
+            {
+                MessageBox.Show("There was an error writing the connection string to the app.config: " + ex.Message);
+            }
+        }
+
+Functionality to create a new database file with the correct tables and skeleton data in place
+
+Issues with Quiz window showing stats for first session taken not LAST
+Change INSERT to reflect the syntax in QuizSessionQuestionDataService for all INSERT
+statements 
+What is the filtering for in some viewmodels
+Number of Questions on SubCategories Windows is STATIC - this needs to change as questions are added and removed.
+Questions - You should be able to copy the Question description to QuestionDescriptionHtml
+Additional Infos - Add AdditionalInfoUri context command to save having notepad open
+
+Publish DG.WPF.SQLite.QuizCreator 
+
+Document Automapper and create a Automapper DG Quiz 
+
+Getting SQLite to run in WPF application
+========================================
+Had to download sqlite-dll-win32-x86-3080301.zip
+from
+http://www.sqlite.org/download.html
+and unzip to reveal:
+sqlite3.dll
+
+dropped this in:
+C:\Development\DG.WPF.SQLite.QuizCreator\bin\Debug
+set project properties to build x86
+problem seems to be resolved.
+
+Deployed Application Crashing 
+=============================
+Copied SQLite3.dll to project directory and specified content and copy always. This seems to deploy the dll with the application which resolved the issue.

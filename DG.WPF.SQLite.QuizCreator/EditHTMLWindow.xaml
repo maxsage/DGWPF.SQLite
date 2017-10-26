@@ -1,0 +1,34 @@
+﻿<Window x:Class="DG.WPF.SQLite.QuizCreator.EditHtmlWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity" 
+        xmlns:cmd="clr-namespace:GalaSoft.MvvmLight.Command;assembly=GalaSoft.MvvmLight.Extras.WPF45"
+        xmlns:ignore="http://www.ignore.com"
+        mc:Ignorable="d ignore"
+        Title="Edit Html"
+        FontSize="14"
+        Width="900"
+        Height="600">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"></RowDefinition>
+            <RowDefinition Height="*"></RowDefinition>
+            <RowDefinition Height="Auto"></RowDefinition>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"></ColumnDefinition>
+            <ColumnDefinition Width="Auto"></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        <TextBlock Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" Name="PreHtml"></TextBlock>
+        <TextBox Grid.Row="1" Grid.Column="0" Name="Html" AcceptsReturn="True" AcceptsTab="True" TextWrapping="Wrap" VerticalScrollBarVisibility="Visible" ></TextBox>
+        <StackPanel Grid.Row="1" Grid.Column="1" Orientation="Vertical">
+            <Button Name="btnCSToHtml" Click="btnCSToHtml_Click">_C# to Html</Button>
+            <Button Name="btnJSToHtml" Click="btnJSToHtml_Click" >_JS to Html</Button>
+            <Button Name="btnHtmlToHtml" Click="btnHtmlToHtml_Click" >_Html to Html</Button>
+            <Button Name="btnKeywordToHtml" Click="btnKeywordToHtml_Click" >_Keyword to Html</Button>
+        </StackPanel>
+        <TextBlock Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2" Name="PostHtml"></TextBlock>
+    </Grid>
+</Window>

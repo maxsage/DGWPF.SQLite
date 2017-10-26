@@ -1,0 +1,81 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 14
+VisualStudioVersion = 14.0.23107.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DG.WPF.SQLite.QuizCreator", "DG.WPF.SQLite.QuizCreator\DG.WPF.SQLite.QuizCreator.csproj", "{F14D9FD2-AAAB-467A-9691-084C5DC6608D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DG.WPF.SQLite.Model", "DG.WPF.SQLite.Model\DG.WPF.SQLite.Model.csproj", "{19139626-8B57-40DB-9B1A-C3180D023F03}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DG.WPF.SQLite.DataService", "DG.WPF.SQLite.DataService\DG.WPF.SQLite.DataService.csproj", "{1BB1AEC9-7A5B-42D5-8BD7-B75CE870D61E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DG.WPF.SQLite.Quiz", "DG.WPF.SQLite.Quiz\DG.WPF.SQLite.Quiz.csproj", "{66625119-6559-44F1-921D-EBFE22A8BFF4}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DG.WPF.SQLite.Utilities", "DG.WPF.SQLite.Utilities\DG.WPF.SQLite.Utilities.csproj", "{877AAF7F-C176-4917-B987-F873BB667A09}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{C535F7CA-6B82-4CC9-8629-9F16B4DDFE66}"
+	ProjectSection(SolutionItems) = preProject
+		DG.docx = DG.docx
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CSharpFormat", "CSharpFormat\CSharpFormat.csproj", "{7A17C857-F1ED-465F-A455-E0607E681F69}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{F14D9FD2-AAAB-467A-9691-084C5DC6608D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F14D9FD2-AAAB-467A-9691-084C5DC6608D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F14D9FD2-AAAB-467A-9691-084C5DC6608D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F14D9FD2-AAAB-467A-9691-084C5DC6608D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{19139626-8B57-40DB-9B1A-C3180D023F03}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{19139626-8B57-40DB-9B1A-C3180D023F03}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{19139626-8B57-40DB-9B1A-C3180D023F03}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{19139626-8B57-40DB-9B1A-C3180D023F03}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1BB1AEC9-7A5B-42D5-8BD7-B75CE870D61E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1BB1AEC9-7A5B-42D5-8BD7-B75CE870D61E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1BB1AEC9-7A5B-42D5-8BD7-B75CE870D61E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1BB1AEC9-7A5B-42D5-8BD7-B75CE870D61E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{66625119-6559-44F1-921D-EBFE22A8BFF4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{66625119-6559-44F1-921D-EBFE22A8BFF4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{66625119-6559-44F1-921D-EBFE22A8BFF4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{66625119-6559-44F1-921D-EBFE22A8BFF4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{877AAF7F-C176-4917-B987-F873BB667A09}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{877AAF7F-C176-4917-B987-F873BB667A09}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{877AAF7F-C176-4917-B987-F873BB667A09}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{877AAF7F-C176-4917-B987-F873BB667A09}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7A17C857-F1ED-465F-A455-E0607E681F69}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7A17C857-F1ED-465F-A455-E0607E681F69}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7A17C857-F1ED-465F-A455-E0607E681F69}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7A17C857-F1ED-465F-A455-E0607E681F69}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(TeamFoundationVersionControl) = preSolution
+		SccNumberOfProjects = 7
+		SccEnterpriseProvider = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
+		SccTeamFoundationServer = https://maxsage.visualstudio.com/defaultcollection
+		SccProjectUniqueName0 = DG.WPF.SQLite.DataService\\DG.WPF.SQLite.DataService.csproj
+		SccProjectName0 = DG.WPF.SQLite.DataService
+		SccLocalPath0 = DG.WPF.SQLite.DataService
+		SccProjectUniqueName1 = DG.WPF.SQLite.Quiz\\DG.WPF.SQLite.Quiz.csproj
+		SccProjectName1 = DG.WPF.SQLite.Quiz
+		SccLocalPath1 = DG.WPF.SQLite.Quiz
+		SccProjectUniqueName2 = DG.WPF.SQLite.Utilities\\DG.WPF.SQLite.Utilities.csproj
+		SccProjectName2 = DG.WPF.SQLite.Utilities
+		SccLocalPath2 = DG.WPF.SQLite.Utilities
+		SccLocalPath3 = .
+		SccProjectUniqueName4 = DG.WPF.SQLite.QuizCreator\\DG.WPF.SQLite.QuizCreator.csproj
+		SccProjectName4 = DG.WPF.SQLite.QuizCreator
+		SccLocalPath4 = DG.WPF.SQLite.QuizCreator
+		SccProjectUniqueName5 = DG.WPF.SQLite.Model\\DG.WPF.SQLite.Model.csproj
+		SccProjectName5 = DG.WPF.SQLite.Model
+		SccLocalPath5 = DG.WPF.SQLite.Model
+		SccProjectUniqueName6 = CSharpFormat\\CSharpFormat.csproj
+		SccProjectName6 = CSharpFormat
+		SccLocalPath6 = CSharpFormat
+	EndGlobalSection
+EndGlobal

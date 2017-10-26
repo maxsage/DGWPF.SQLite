@@ -1,0 +1,162 @@
+﻿<Window x:Class="DG.WPF.SQLite.QuizCreator.QuestionsWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity" 
+        xmlns:cmd="clr-namespace:GalaSoft.MvvmLight.Command;assembly=GalaSoft.MvvmLight.Extras.WPF45"
+        xmlns:ignore="http://www.ignore.com"
+        mc:Ignorable="d ignore"
+        xmlns:local="clr-namespace:DG.WPF.SQLite.QuizCreator.HelperClasses"
+        Title="Questions">
+    <Window.InputBindings>
+        <KeyBinding Command="{Binding NewQuestionCommand}"  Key="N" Modifiers="Control" />
+        <KeyBinding Command="{Binding SaveQuestionsCommand}" Key="S" Modifiers="Control" />
+        <KeyBinding Command="{Binding NextQuestionCommand}" Key="Add" Modifiers="Control" />
+        <KeyBinding Command="{Binding PreviousQuestionCommand}" Key="Subtract" Modifiers="Control" />
+        <KeyBinding Command="{Binding DeleteQuestionCommand}" Key="Delete" />
+    </Window.InputBindings>
+    <i:Interaction.Triggers>
+        <i:EventTrigger EventName="Closing">
+            <cmd:EventToCommand Command="{Binding OnClosingCommand}"  PassEventArgsToCommand="True"  />
+        </i:EventTrigger>
+    </i:Interaction.Triggers>
+    <Grid>       
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"></RowDefinition>
+            <RowDefinition Height="Auto"></RowDefinition>
+            <RowDefinition Height="Auto"></RowDefinition>
+            <RowDefinition ></RowDefinition>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition></ColumnDefinition>
+            <ColumnDefinition Width="10"></ColumnDefinition>
+            <ColumnDefinition></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        <DockPanel Grid.Row="0" Grid.ColumnSpan="3">
+            <Menu DockPanel.Dock="Top">
+                <MenuItem Header="_File">
+                    <MenuItem Header="_New" Command="{Binding NewQuestionCommand}" />
+                    <MenuItem Header="_Save" Command="{Binding SaveQuestionsCommand}"/>
+                </MenuItem>
+                <MenuItem Header="_Edit">
+                    <MenuItem Header="_Update HTML" Command="{Binding UpdateHtmlCommand}" />
+                </MenuItem>
+            </Menu>
+        </DockPanel>
+        <Grid Grid.Row="2" Grid.Column="0" Grid.RowSpan="2">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"></RowDefinition>
+                <RowDefinition></RowDefinition>
+            </Grid.RowDefinitions>
+                <TextBox Background="Gainsboro" 
+                        IsReadOnly="True"
+                        Grid.Row="0"
+                        Grid.Column="0"
+                        MinLines="2"
+                        Text="{Binding Path=QuestionPath, Mode=OneWay}" 
+                        FontSize="18pt" 
+                        Margin="10"
+                        Padding="10" 
+                        TextWrapping="Wrap">
+                    <TextBox.Effect>
+                        <DropShadowEffect/>
+                    </TextBox.Effect>
+                </TextBox>
+            <ListBox x:Name="lstQuestions"  
+                      Grid.Row="1" 
+                      Grid.Column="0"
+                      ItemsSource="{Binding Questions.View}"  
+                      FontSize="14" 
+                      SelectedItem="{Binding SelectedQuestion}"
+                      ScrollViewer.HorizontalScrollBarVisibility="Disabled" >
+                <i:Interaction.Triggers>
+                    <i:EventTrigger EventName="MouseDoubleClick">
+                        <i:InvokeCommandAction CommandParameter="{Binding SelectedItem, ElementName=lstQuestions}" Command="{Binding Path=ShowAnswersCommand, Mode=OneWay}"/>
+                    </i:EventTrigger>
+                </i:Interaction.Triggers>
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto"></ColumnDefinition>
+                                <ColumnDefinition Width="Auto"></ColumnDefinition>
+                                <ColumnDefinition ></ColumnDefinition>
+                            </Grid.ColumnDefinitions>
+                            <TextBlock Grid.Column="0" Text="{Binding Path=Id}" Margin="5"></TextBlock>
+                            <TextBlock Grid.Column="1" Text="{Binding Path=SequenceNumber}" Margin="5"></TextBlock>
+                            <TextBlock Grid.Column="2" Text="{Binding Path=Description}" Margin="5" TextWrapping="Wrap"></TextBlock>
+                        </Grid>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+                <ItemsControl.ContextMenu>
+                    <ContextMenu>
+                        <MenuItem  Command="{Binding PreviewHtmlCommand}" Header="Preview Html"></MenuItem>
+                        <MenuItem  Command="{Binding EditHtmlCommand}" Header="Edit Html"></MenuItem>
+                    </ContextMenu>
+                </ItemsControl.ContextMenu>
+            </ListBox>
+        </Grid>
+        <GridSplitter Grid.Row="1" Grid.RowSpan="4" Grid.Column="1" Width="10" Margin="0" Background="AliceBlue" ResizeDirection="Columns" HorizontalAlignment="Center"></GridSplitter>
+        <Grid Grid.Row="2" Grid.Column="2"> 
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"></RowDefinition>
+                <RowDefinition Height="Auto"></RowDefinition>
+                <RowDefinition Height="Auto"></RowDefinition>
+                <RowDefinition Height="Auto"></RowDefinition>
+                <RowDefinition Height="Auto"></RowDefinition>
+                <RowDefinition Height="Auto"></RowDefinition>
+                <RowDefinition Height="Auto"></RowDefinition>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <TextBox 
+                    AcceptsReturn="True" 
+                    Background="Gainsboro" 
+                     Grid.Row="0" 
+                     Grid.Column="0" 
+                     Grid.ColumnSpan="2" 
+                     MinLines="2" 
+                     Text="{Binding Path=SelectedQuestion.Description, Mode=TwoWay}" 
+                     FontSize="18pt" 
+                     Margin="10" 
+                     Padding="10" 
+                     TextWrapping="Wrap">
+                <TextBox.Effect>
+                    <DropShadowEffect/>
+                </TextBox.Effect>
+            </TextBox>
+            <TextBlock Grid.Row="1" Grid.Column="0" Text="Sequence Number:" Style="{DynamicResource styleTextBlock}" Width="Auto"></TextBlock>
+            <TextBox Grid.Row="1" Grid.Column="1" Text="{Binding Path=SelectedQuestion.SequenceNumber}" Style="{DynamicResource styleTextBox}"></TextBox>
+            <TextBlock Grid.Row="2" Grid.Column="0" Text="Difficulty:" Style="{DynamicResource styleTextBlock}" Width="Auto"></TextBlock>
+            <TextBox Grid.Row="2" Grid.Column="1" Text="{Binding Path=SelectedQuestion.Difficulty}"  Style="{DynamicResource styleTextBox}"></TextBox>
+            <TextBlock Grid.Row="3" Grid.Column="0" Text="Score:" Style="{DynamicResource styleTextBlock}" Width="Auto"></TextBlock>
+            <TextBox Grid.Row="3" Grid.Column="1" Text="{Binding Path=SelectedQuestion.Score, Mode=TwoWay}"  Style="{DynamicResource styleTextBox}"></TextBox>
+            <TextBlock Grid.Row="4" Grid.Column="0" Text="Sub Category:" Style="{DynamicResource styleTextBlock}"></TextBlock>
+            <ComboBox Grid.Row="4" Grid.Column="1" ItemsSource="{Binding SubCategories}" 
+                      SelectedValue="{Binding Path=SelectedQuestion.SubCategoryId, Mode=TwoWay}"
+                      DisplayMemberPath="SubCategoryDescription"
+                      SelectedValuePath="Id"
+                      Style="{DynamicResource styleComboBox}">
+            </ComboBox>
+            <TextBlock Grid.Row="5" Grid.Column="0" Text="Question Type:" Style="{DynamicResource styleTextBlock}"></TextBlock>
+            <ComboBox Grid.Row="5" Grid.Column="1" ItemsSource="{Binding QuestionTypes}" 
+                      SelectedValue="{Binding Path=SelectedQuestion.QuestionTypeId, Mode=TwoWay}"
+                      DisplayMemberPath="Description"
+                      SelectedValuePath="Id"
+                      Style="{DynamicResource styleComboBox}">
+            </ComboBox>
+            <TextBlock Grid.Row="6" Grid.Column="0" Text="Additional Info" Style="{DynamicResource styleTextBlock}"></TextBlock>
+            <ComboBox Grid.Row="6" Grid.Column="1" ItemsSource="{Binding AdditionalInfos}" 
+                      SelectedValue="{Binding Path=SelectedQuestion.AdditionalInfoId, Mode=TwoWay}"
+                      DisplayMemberPath="SectionDescription"
+                      SelectedValuePath="Id"
+                      Style="{DynamicResource styleComboBox}">
+            </ComboBox>            
+        </Grid>
+        <WebBrowser Grid.Row="3" Grid.Column="2" 
+            local:WebBrowserUtility.BindableSource="{Binding SelectedQuestion.DescriptionFullHtml}"  />
+    </Grid>
+</Window>

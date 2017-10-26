@@ -1,0 +1,145 @@
+﻿<Window x:Class="DG.WPF.SQLite.QuizCreator.CategoriesWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity" 
+        xmlns:cmd="clr-namespace:GalaSoft.MvvmLight.Command;assembly=GalaSoft.MvvmLight.Extras.WPF45"
+        xmlns:local="clr-namespace:DG.WPF.SQLite.QuizCreator.HelperClasses"
+        Title="Categories"
+        DataContext="{Binding CategoriesViewModel, Source={StaticResource Locator}}">
+    <Window.Resources>
+        <Style x:Key="spStyle" TargetType="StackPanel">
+            <Setter Property="StackPanel.Background" Value="Green" />
+            <Style.Triggers>
+                <DataTrigger Binding="{Binding CurrentEnvironment}" Value="LIVE">
+                    <Setter Property="StackPanel.Background" Value="Red" />
+                </DataTrigger>
+            </Style.Triggers>
+        </Style>
+    </Window.Resources>
+    <Window.InputBindings>
+        <KeyBinding Command="{Binding NewCategoryCommand}"  Key="N" Modifiers="Control" />
+        <KeyBinding Command="{Binding SaveCategoriesCommand}" Key="S" Modifiers="Control" />
+        <KeyBinding Command="{Binding DeleteCategoryCommand}" Key="Delete" />
+    </Window.InputBindings>
+    <i:Interaction.Triggers>
+        <i:EventTrigger EventName="Closing">
+            <cmd:EventToCommand Command="{Binding OnClosingCommand}"  PassEventArgsToCommand="True"  />
+        </i:EventTrigger>
+    </i:Interaction.Triggers>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition></ColumnDefinition>
+            <ColumnDefinition Width="10"/>
+            <ColumnDefinition></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        <DockPanel Grid.Row="0" Grid.ColumnSpan="3">
+            <Menu DockPanel.Dock="Top">
+                <MenuItem Header="_File">
+                    <MenuItem Header="_Open" Command="{Binding Path=OpenQuizPackCommand, Mode=OneWay}"/>
+                    <MenuItem Header="_Close"/>
+                    <MenuItem Header="_Save"/>
+                </MenuItem>
+            </Menu>
+            <StackPanel></StackPanel>
+        </DockPanel>
+        <ListBox x:Name="Categories"
+            Grid.Row="1" 
+            Grid.Column="0" 
+            ItemsSource="{Binding Categories}" 
+            SelectedItem="{Binding SelectedCategory}">
+            <i:Interaction.Triggers>
+                <i:EventTrigger EventName="MouseDoubleClick">
+                    <i:InvokeCommandAction CommandParameter="{Binding SelectedItem, ElementName=Categories}" Command="{Binding Path=ShowSubCategoriesCommand, Mode=OneWay}"/>
+                </i:EventTrigger>
+            </i:Interaction.Triggers>
+            <ItemsControl.ItemTemplate>
+                <DataTemplate>
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="{Binding Path=CategoryDescription}"></TextBlock>
+                    </StackPanel>
+                </DataTemplate>
+            </ItemsControl.ItemTemplate>
+            <ItemsControl.ContextMenu>
+                <ContextMenu>
+                    <MenuItem  Command="{Binding PreviewHtmlCommand}" Header="Preview Html"></MenuItem>
+                    <MenuItem  Command="{Binding EditHtmlCommand}" Header="Edit Html"></MenuItem>
+                </ContextMenu>
+            </ItemsControl.ContextMenu>
+        </ListBox>
+        <GridSplitter Grid.Row="1" Grid.RowSpan="2" Grid.Column="1" Width="10" Margin="0" Background="AliceBlue" ResizeDirection="Columns" HorizontalAlignment="Center"></GridSplitter>
+        <Grid Grid.Row="1" Grid.Column="2">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"></RowDefinition>
+                <RowDefinition Height="Auto"></RowDefinition>
+                <RowDefinition Height="Auto"></RowDefinition>
+                <RowDefinition></RowDefinition>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <TextBox Background="Gainsboro" 
+                     Grid.Row="0" 
+                     Grid.Column="0" 
+                     MinLines="2" 
+                     Text="{Binding Path=SelectedCategory.CategoryDescription, Mode=TwoWay}" 
+                     FontSize="18pt" 
+                     Margin="10" 
+                     Padding="10" 
+                     TextWrapping="Wrap">
+                <TextBox.Effect>
+                    <DropShadowEffect/>
+                </TextBox.Effect>
+            </TextBox>
+            <Grid Grid.Row="1" 
+                Grid.Column="0"
+                HorizontalAlignment="Stretch" Margin="0" >
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"></ColumnDefinition>
+                    <ColumnDefinition Width="*"></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"></RowDefinition>
+                </Grid.RowDefinitions>
+                <Label Grid.Column="0" Content="Ftp Host" VerticalAlignment="Center"></Label>
+
+                <TextBox Grid.Column="1" Margin="0,4,0,4"  ToolTipService.ShowDuration="18000" Text="{Binding Path=SelectedCategory.AdditionalInfoFtpAddress, Mode=TwoWay}" HorizontalAlignment="Stretch">
+                    <TextBox.ToolTip>
+                        <ToolTip>
+                            <StackPanel Width="400">
+                                <TextBlock FontWeight="Bold" Text="{Binding Path=AdditionalInfoFtpAddressToolTipHeading, Mode=OneWay}"></TextBlock>
+                                <TextBlock TextWrapping="Wrap" Text="{Binding Path=AdditionalInfoFtpAddressToolTipText, Mode=OneWay}" ></TextBlock>
+                            </StackPanel>
+                        </ToolTip>
+                    </TextBox.ToolTip>
+                </TextBox>
+            </Grid>
+            <TextBox Grid.Row="2"
+                     Grid.Column="0"
+                     Text="{Binding Path=SelectedCategory.AdditionalInfoUri, Mode=TwoWay}"
+                     ToolTipService.ShowDuration="18000">
+                <TextBox.ToolTip>
+                    <ToolTip>
+                        <StackPanel Width="400">
+                            <TextBlock FontWeight="Bold" Text="{Binding Path=AdditionalInfoUriToolTipHeading, Mode=OneWay}"></TextBlock>
+                            <TextBlock TextWrapping="Wrap" Text="{Binding Path=AdditionalInfoUriToolTipText, Mode=OneWay}" ></TextBlock>
+                        </StackPanel>
+                    </ToolTip>
+                </TextBox.ToolTip>
+
+            </TextBox>
+            <WebBrowser Grid.Row="3" Grid.Column="0" 
+            local:WebBrowserUtility.BindableSource="{Binding SelectedCategory.CategoryNotesFullHtml}"  />
+        </Grid>
+
+        <StackPanel Grid.Row="2" Grid.ColumnSpan="3" Orientation="Horizontal" Style="{StaticResource spStyle}" >
+            <TextBlock Text="{Binding CurrentEnvironment}"></TextBlock>
+            <TextBlock Text="{Binding ServerConnection}"></TextBlock>
+        </StackPanel>
+
+    </Grid>
+</Window>

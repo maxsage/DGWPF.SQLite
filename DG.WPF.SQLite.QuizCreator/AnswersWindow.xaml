@@ -1,0 +1,119 @@
+﻿<Window x:Class="DG.WPF.SQLite.QuizCreator.AnswersWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity" 
+        xmlns:cmd="clr-namespace:GalaSoft.MvvmLight.Command;assembly=GalaSoft.MvvmLight.Extras.WPF45"
+        xmlns:ignore="http://www.ignore.com"
+        mc:Ignorable="d ignore"
+        xmlns:local="clr-namespace:DG.WPF.SQLite.QuizCreator.HelperClasses"
+        Title="Answers">
+    <Window.InputBindings>
+        <KeyBinding Command="{Binding NewAnswerCommand}"  Key="N" Modifiers="Control" />
+        <KeyBinding Command="{Binding SaveAnswersCommand}" Key="S" Modifiers="Control" />
+        <KeyBinding Command="{Binding NextAnswerCommand}" Key="Add" Modifiers="Control" />
+        <KeyBinding Command="{Binding PreviousAnswerCommand}" Key="Subtract" Modifiers="Control" />
+        <KeyBinding Command="{Binding DeleteAnswerCommand}" Key="Delete" />
+    </Window.InputBindings>
+    <i:Interaction.Triggers>
+        <i:EventTrigger EventName="Closing">
+            <cmd:EventToCommand Command="{Binding OnClosingCommand}"  PassEventArgsToCommand="True"  />
+        </i:EventTrigger>
+    </i:Interaction.Triggers>
+    <Grid>       
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"></RowDefinition>
+            <RowDefinition Height="Auto"></RowDefinition>
+            <RowDefinition ></RowDefinition>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition></ColumnDefinition>
+            <ColumnDefinition Width="10"></ColumnDefinition>
+            <ColumnDefinition></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        <Grid Grid.Row="1" Grid.Column="0" Grid.RowSpan="2">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"></RowDefinition>
+                <RowDefinition></RowDefinition>
+            </Grid.RowDefinitions>
+                <TextBox Background="Gainsboro" 
+                        IsReadOnly="True"
+                        Grid.Row="0"
+                        Grid.Column="0"
+                        MinLines="2"
+                        Text="{Binding Path=AnswerPath, Mode=OneWay}" 
+                        FontSize="18pt" 
+                        Margin="10"
+                        Padding="10" 
+                        TextWrapping="Wrap">
+                    <TextBox.Effect>
+                        <DropShadowEffect/>
+                    </TextBox.Effect>
+                </TextBox>
+            <ListView x:Name="lstQuestions"  
+                      Grid.Row="1" 
+                      ItemsSource="{Binding Answers.View}"  
+                      FontSize="14" 
+                      SelectedItem="{Binding Path=SelectedAnswer, Mode=TwoWay}"
+                      Style="{DynamicResource styleListBox}" 
+                      ScrollViewer.HorizontalScrollBarVisibility="Disabled" >
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto"></ColumnDefinition>
+                                <ColumnDefinition Width="Auto"></ColumnDefinition>
+                                <ColumnDefinition ></ColumnDefinition>
+                            </Grid.ColumnDefinitions>
+                            <TextBlock Grid.Column="0" Text="{Binding Path=Id}" Margin="5"></TextBlock>
+                            <TextBlock Grid.Column="1" Text="{Binding Path=Description}" Margin="5"></TextBlock>
+                            <TextBlock Grid.Column="2" Text="{Binding Path=CorrectAnswer}" Margin="5" TextWrapping="Wrap"></TextBlock>
+                        </Grid>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+                <ItemsControl.ContextMenu>
+                    <ContextMenu>
+                        <MenuItem  Command="{Binding PreviewHtmlCommand}" Header="Preview Html"></MenuItem>
+                        <MenuItem  Command="{Binding EditHtmlCommand}" Header="Edit Html"></MenuItem>
+                    </ContextMenu>
+                </ItemsControl.ContextMenu>
+            </ListView>
+        </Grid>
+        <GridSplitter Grid.Row="0" Grid.RowSpan="3" Grid.Column="1" Width="10" Margin="0" Background="AliceBlue" ResizeDirection="Columns" HorizontalAlignment="Center"></GridSplitter>
+        <Grid Grid.Row="1" Grid.Column="2"> 
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"></RowDefinition>
+                <RowDefinition Height="Auto"></RowDefinition>
+                <RowDefinition Height="Auto"></RowDefinition>
+                <RowDefinition Height="Auto"></RowDefinition>
+                <RowDefinition Height="Auto"></RowDefinition>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <TextBox Background="Gainsboro" 
+                     Grid.Row="0" 
+                     Grid.Column="0" 
+                     Grid.ColumnSpan="2" 
+                     MinLines="2" 
+                     Text="{Binding Path=SelectedAnswer.Description, Mode=TwoWay}" 
+                     FontSize="18pt" 
+                     Margin="10" 
+                     Padding="10" 
+                     TextWrapping="Wrap">
+                <TextBox.Effect>
+                    <DropShadowEffect/>
+                </TextBox.Effect>
+            </TextBox>
+            <TextBlock Grid.Row="1" Grid.Column="0" Text="Correct Answer:" Style="{DynamicResource styleTextBlock}" Width="Auto"></TextBlock>
+            <ComboBox Grid.Row="1" Grid.Column="1" ItemsSource="{Binding AnswerTypes}" 
+                      SelectedValue="{Binding Path=SelectedAnswer.CorrectAnswer, Mode=TwoWay}"
+                      Style="{DynamicResource styleComboBox}" />
+        </Grid>
+        <WebBrowser Grid.Row="2" Grid.Column="2" 
+            local:WebBrowserUtility.BindableSource="{Binding SelectedAnswer.DescriptionFullHtml}"  />
+
+    </Grid>
+</Window>

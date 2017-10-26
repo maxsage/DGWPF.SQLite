@@ -1,0 +1,37 @@
+.csharpcode, .csharpcode pre
+{  
+    background-color: #1E1E1E; 
+    color: #DCDCD5;
+    padding: 5px;
+	font-size: medium;
+	font-family: Consolas, "Courier New", Courier, Monospace;
+}
+
+.csharpcode .rem { color: #4DA64A; }
+
+.csharpcode .kwrd { color: #347CD6; }
+
+.csharpcode .str { color: #D69D68; }
+
+.csharpcode .preproc { color: #9B9B9B; }
+
+.csharpcode .op { color: #B4B4B4; }
+
+.csharpcode .asp { background-color: #ffff00; }
+
+.csharpcode .html { color: #569cd6; }
+
+.csharpcode .attr { color: #9cdcfe; }
+/* MSage: Added 2015/04/23 */
+.csharpcode .attrvalue { color: #c8c8c8; }
+
+.csharpcode .angular { color: #ff00df; }
+
+.csharpcode .alt 
+{
+	background-color: #f4f4f4;
+	width: 100%;
+	margin: 0em;
+}
+
+.csharpcode .lnum { color: #606060; }
