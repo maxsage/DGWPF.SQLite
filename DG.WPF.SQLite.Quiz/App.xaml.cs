@@ -6,6 +6,7 @@ using System.Configuration;
 using System.Data;
 using System.Linq;
 using System.Windows;
+using System.Windows.Media;
 
 namespace DG.WPF
 {
@@ -16,6 +17,7 @@ namespace DG.WPF
     {
         protected override void OnStartup(StartupEventArgs e)
         {
+            RenderOptions.ProcessRenderMode = System.Windows.Interop.RenderMode.SoftwareOnly;
             AutoMapperConfiguration.Configure();
 
             base.OnStartup(e);

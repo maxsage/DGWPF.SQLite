@@ -1,16 +1,7 @@
-<Application x:Class="DG.WPF.App"
-             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" 
-             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" 
-             xmlns:vm="clr-namespace:DG.WPF.SQLite.Quiz.ViewModel" 
-             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-             xmlns:views="clr-namespace:DG.WPF.SQLite.Quiz.Views"
-             StartupUri="Views/ConfigureQuizWindow.xaml" 
-             mc:Ignorable="d">
-  <Application.Resources>
+<Application x:Class="DG.WPF.App" xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:vm="clr-namespace:DG.WPF.SQLite.Quiz.ViewModel" xmlns:d="http://schemas.microsoft.com/expression/blend/2008" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:views="clr-namespace:DG.WPF.SQLite.Quiz.Views" StartupUri="Views/ConfigureQuizWindow.xaml" mc:Ignorable="d">
+    <Application.Resources>
         <!-- Global View Model Locator -->
         <vm:ViewModelLocator x:Key="Locator" d:IsDataSource="True" />
-
         <!--
             We define the data templates here so we can apply them across the
             entire application.
@@ -31,77 +22,62 @@
         <DataTemplate DataType="{x:Type vm:MultipleChoiceMultipleAnswerViewModel}">
             <views:MultipleChoiceMultipleAnswer />
         </DataTemplate>
-
         <!-- General Formatting -->
         <Style x:Key="MyFontStyle">
-            <Setter  Property="Window.FontSize" Value="16" />
+            <Setter Property="Window.FontSize" Value="16" />
         </Style>
         <Style TargetType="TextBlock" BasedOn="{StaticResource MyFontStyle}">
             <Setter Property="Margin" Value="5" />
             <Setter Property="VerticalAlignment" Value="Center" />
         </Style>
-
         <Style TargetType="TextBox">
             <Setter Property="Margin" Value="5" />
             <Setter Property="VerticalAlignment" Value="Center" />
         </Style>
-
         <Style TargetType="Label">
             <Setter Property="Margin" Value="5" />
             <Setter Property="VerticalAlignment" Value="Center" />
         </Style>
-
         <Style TargetType="ComboBox">
             <Setter Property="Margin" Value="5" />
             <Setter Property="Height" Value="Auto" />
         </Style>
-
         <Style TargetType="Button">
             <Setter Property="Margin" Value="5" />
         </Style>
-
         <Style TargetType="ToggleButton">
             <Setter Property="Margin" Value="5" />
         </Style>
-
         <Style TargetType="RadioButton">
             <Setter Property="Margin" Value="5" />
-            <Setter Property="Height" Value="Auto"/>
+            <Setter Property="Height" Value="Auto" />
         </Style>
         <Style TargetType="CheckBox">
             <Setter Property="Margin" Value="5" />
-            <Setter Property="Height" Value="Auto"/>
+            <Setter Property="Height" Value="Auto" />
         </Style>
-
         <Style TargetType="WebBrowser">
             <Setter Property="Margin" Value="5" />
         </Style>
-
-
         <ControlTemplate x:Key="RadioButtonTemplate" TargetType="{x:Type RadioButton}">
             <RadioButton>
                 <TextBlock>
-                    <InlineUIContainer>
-                        <ContentPresenter Margin="0,-13,10,0" 
-                            Content="{TemplateBinding ContentPresenter.Content}"
-                            ContentTemplate="{TemplateBinding ContentPresenter.ContentTemplate}"/>
-                    </InlineUIContainer>
+          <InlineUIContainer>
+            <ContentPresenter Margin="0,-13,10,0" Content="{TemplateBinding ContentPresenter.Content}" ContentTemplate="{TemplateBinding ContentPresenter.ContentTemplate}" />
+          </InlineUIContainer>
                 </TextBlock>
             </RadioButton>
         </ControlTemplate>
-
         <ControlTemplate x:Key="CheckBoxTemplate" TargetType="{x:Type CheckBox}">
             <CheckBox>
                 <TextBlock>
-                    <InlineUIContainer>
-                        <ContentPresenter Margin="0,-13,10,0" 
-                            Content="{TemplateBinding ContentPresenter.Content}"
-                            ContentTemplate="{TemplateBinding ContentPresenter.ContentTemplate}"/>
-                    </InlineUIContainer>
+          <InlineUIContainer>
+            <ContentPresenter Margin="0,-13,10,0" Content="{TemplateBinding ContentPresenter.Content}" ContentTemplate="{TemplateBinding ContentPresenter.ContentTemplate}" />
+          </InlineUIContainer>
                 </TextBlock>
             </CheckBox>
         </ControlTemplate>
-
-
+        <!--<vm:ViewModelLocator x:Key="Locator" d:IsDataSource="True" />-->
+        <!--<ResourceDictionary />-->
     </Application.Resources>
 </Application>
